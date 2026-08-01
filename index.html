@@ -358,6 +358,40 @@ const BRAND_NAME = "Fornecedores Verificados";
 const BRAND_SUB  = "por Nathalyn Cosméticos";
 
 /* =========================================================
+   RASTREAMENTO — Google Sheets
+   ========================================================= */
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxpGH-MWinhHpQ_TZIQU0oflq1omFxj5ze9AQSYUP1wrAj3dKwiyxlti9CXQXChuMwa2A/exec";
+
+const SESSION_ID = (function(){
+  let id = sessionStorage.getItem("sessao_id");
+  if(!id){
+    id = "sid_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
+    sessionStorage.setItem("sessao_id", id);
+  }
+  return id;
+})();
+
+function trackEvent(etapa){
+  try{
+    fetch(SHEETS_WEBHOOK_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify({
+        sessao: SESSION_ID,
+        etapa: etapa,
+        resposta: JSON.stringify(answers)
+      })
+    });
+  }catch(e){ /* falha silenciosa — nunca deve travar o quiz */ }
+}
+
+function etapaLabel(step){
+  if(step.type === "question") return "pergunta_" + step.data.id;
+  if(step.type === "interlude") return "interludio_" + step.kind;
+  return step.type; // intro, loading, results, capture, howworks, testimonials, offer
+}
+
+/* =========================================================
    STATE
    ========================================================= */
 let stepIndex = 0;
@@ -507,6 +541,7 @@ function progressPercent(){
 
 function render(){
   const step = FLOW[stepIndex];
+  trackEvent(etapaLabel(step));
   let html = "";
 
   const showTopbar = step.type !== "loading";
@@ -888,7 +923,7 @@ function renderOffer(){
     </div>
 
     <div class="sticky-cta">
-      <a href="${CHECKOUT_URL}" target="_blank" style="text-decoration:none;">
+      <a href="${CHECKOUT_URL}" target="_blank" style="text-decoration:none;" onclick="trackEvent('clicou_checkout')">
         <button class="btn btn-gold">🔥 QUERO GARANTIR A LISTA AGORA</button>
       </a>
       <div class="small-note">Pagamento 100% seguro · Valor promocional por tempo limitado</div>
