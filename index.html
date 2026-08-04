@@ -27,19 +27,21 @@ src="https://www.facebook.com/tr?id=1370279818369852&ev=PageView&noscript=1"
 
 <style>
   :root{
-    --tiffany-deep:#0b6e66;
-    --tiffany:#0abab5;
-    --tiffany-light:#bfe9e5;
-    --tiffany-pale:#eef8f7;
-    --gold:#c9a227;
-    --gold-light:#e6c766;
+    --tiffany-deep:#161616;
+    --tiffany:#4a4a4a;
+    --tiffany-light:#d6d6d6;
+    --tiffany-pale:#f3f3f3;
+    --gold:#2b2b2b;
+    --gold-light:#9c9c9c;
     --white:#ffffff;
-    --cream:#fdfbf7;
-    --ink:#1b2b2a;
-    --ink-soft:#5b6d6b;
-    --danger:#c0392b;
+    --cream:#fafafa;
+    --ink:#161616;
+    --ink-soft:#6a6a6a;
+    --danger:#333333;
     --radius:18px;
-    --shadow:0 10px 30px rgba(11,110,102,0.12);
+    --shadow:0 10px 30px rgba(0,0,0,0.10);
+    --green:#16a34a;
+    --green-dark:#0e7c38;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -67,9 +69,9 @@ src="https://www.facebook.com/tr?id=1370279818369852&ev=PageView&noscript=1"
     box-shadow:var(--shadow);
     overflow:hidden;
     position:relative;
-    border:1px solid rgba(201,162,39,0.18);
+    border:1px solid rgba(0,0,0,0.15);
   }
-  .topbar{padding:18px 22px 14px;border-bottom:1px solid rgba(11,110,102,0.08);}
+  .topbar{padding:18px 22px 14px;border-bottom:1px solid rgba(0,0,0,0.08);}
   .brand{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
   .brand-mark{
     width:34px;height:34px;border-radius:50%;
@@ -89,7 +91,7 @@ src="https://www.facebook.com/tr?id=1370279818369852&ev=PageView&noscript=1"
   .qhint{font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;}
   .options{display:flex;flex-direction:column;gap:11px;}
   .option{
-    border:1.5px solid rgba(11,110,102,0.18);border-radius:14px;padding:14px 16px;font-size:14.5px;cursor:pointer;
+    border:1.5px solid rgba(0,0,0,0.16);border-radius:14px;padding:14px 16px;font-size:14.5px;cursor:pointer;
     display:flex;align-items:center;gap:12px;transition:.2s;background:var(--white);color:var(--ink);
   }
   .option:hover{border-color:var(--tiffany);background:var(--tiffany-pale);}
@@ -117,20 +119,20 @@ src="https://www.facebook.com/tr?id=1370279818369852&ev=PageView&noscript=1"
   }
   .q-screen .option:hover{
     transform:translateY(-2px) scale(1.015);
-    box-shadow:0 6px 16px rgba(11,110,102,0.14);
+    box-shadow:0 6px 16px rgba(0,0,0,0.12);
   }
   .q-screen .option:active{transform:scale(0.98);}
   .q-screen .option.selected{
     transform:scale(1.02);
-    box-shadow:0 6px 18px rgba(11,110,102,0.20), inset 0 0 0 1.5px var(--tiffany-deep);
+    box-shadow:0 6px 18px rgba(0,0,0,0.18), inset 0 0 0 1.5px var(--tiffany-deep);
   }
   .q-screen .option .box{transition:.2s;}
   .q-screen .option.selected .box{transform:scale(1.08);}
   .btn{width:100%;padding:16px;border:none;border-radius:14px;font-family:'Jost';font-weight:600;font-size:15px;letter-spacing:.3px;cursor:pointer;margin-top:24px;transition:.2s;}
-  .btn-primary{background:linear-gradient(90deg, var(--tiffany-deep), var(--tiffany));color:white;box-shadow:0 8px 20px rgba(10,186,181,0.35);}
+  .btn-primary{background:linear-gradient(90deg, var(--green-dark), var(--green));color:white;box-shadow:0 8px 20px rgba(22,163,74,0.35);}
   .btn-primary:hover{filter:brightness(1.05);transform:translateY(-1px);}
   .btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
-  .btn-gold{background:linear-gradient(90deg, var(--gold), var(--gold-light));color:#3a2e05;box-shadow:0 8px 20px rgba(201,162,39,0.4);font-weight:700;}
+  .btn-gold{background:linear-gradient(90deg, var(--green), var(--green-dark));color:white;box-shadow:0 8px 20px rgba(22,163,74,0.4);font-weight:700;}
   .btn-gold:hover{filter:brightness(1.05);transform:translateY(-1px);}
   .center{text-align:center;}
   .pain-box{background:#fbeceb;border:1px solid #f2c9c6;border-radius:14px;padding:16px 18px;margin:18px 0;}
@@ -167,14 +169,14 @@ src="https://www.facebook.com/tr?id=1370279818369852&ev=PageView&noscript=1"
   .steps-row .txt{font-size:13.5px;padding-top:3px;}
   .field-group{margin-bottom:16px;}
   .field-label{font-size:12.5px;font-weight:600;color:var(--tiffany-deep);margin-bottom:6px;display:block;}
-  .field-input{width:100%;padding:14px 16px;border:1.5px solid rgba(11,110,102,0.2);border-radius:12px;font-family:'Jost';font-size:14.5px;color:var(--ink);background:var(--white);transition:.2s;}
-  .field-input:focus{outline:none;border-color:var(--tiffany);box-shadow:0 0 0 3px rgba(10,186,181,0.12);}
+  .field-input{width:100%;padding:14px 16px;border:1.5px solid rgba(0,0,0,0.18);border-radius:12px;font-family:'Jost';font-size:14.5px;color:var(--ink);background:var(--white);transition:.2s;}
+  .field-input:focus{outline:none;border-color:var(--tiffany);box-shadow:0 0 0 3px rgba(0,0,0,0.10);}
   .field-error{font-size:11px;color:var(--danger);margin-top:5px;display:none;}
   .field-group.invalid .field-input{border-color:var(--danger);}
   .field-group.invalid .field-error{display:block;}
   .capture-icon{font-size:34px;text-align:center;margin-bottom:6px;}
   .privacy-note{font-size:10.5px;color:var(--ink-soft);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:5px;}
-  .proof-img{width:100%;border-radius:14px;box-shadow:0 8px 22px rgba(11,110,102,0.15);display:block;margin:14px 0;border:1px solid var(--tiffany-light);}
+  .proof-img{width:100%;border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,0.14);display:block;margin:14px 0;border:1px solid var(--tiffany-light);}
   .proof-gallery{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
   .proof-gallery figure{margin:0;}
   .proof-gallery figcaption{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:6px;font-style:italic;}
@@ -687,7 +689,7 @@ function renderOffer(){
     </div>
 
     <div class="sticky-cta">
-      <a href="${CHECKOUT_URL}" target="_blank" style="text-decoration:none;">
+      <a href="${CHECKOUT_URL}" target="_blank" style="text-decoration:none;" onclick="fbq('track', 'AddToCart', {value: 27.00, currency: 'BRL', content_name: 'Lista de Fornecedores Verificados'});">
         <button class="btn btn-gold">🔥 QUERO GARANTIR A LISTA AGORA</button>
       </a>
       <div class="small-note">Pagamento 100% seguro · Valor promocional por tempo limitado</div>
