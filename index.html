@@ -268,7 +268,7 @@ function getTrackingParams(){
 }
 
 function trackStep(step, answerText){
-  if(!TRACKING_ENDPOINT || TRACKING_ENDPOINT.indexOf("COLE_AQUI") !== -1) return;
+  if(!TRACKING_ENDPOINT || TRACKING_ENDPOINT.indexOf("https://script.google.com/macros/s/AKfycbzC80mlndjJ51hanZbcokpKVr6r_ZgtOEgdaIygYoPqsTIliuHuOLnML2GOzZVgcdHd4A/exec") !== -1) return;
   let stepName = "Início";
   if(step.type === "q") stepName = QMAP[step.id] ? QMAP[step.id].title.slice(0,40) : step.id;
   else if(step.type === "interlude") stepName = "Interlúdio: " + step.kind;
