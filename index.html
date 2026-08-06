@@ -240,6 +240,54 @@ let stepIndex = 0;
 const answers = {};
 
 /* =========================================================
+   TRACKING (Google Sheets ao vivo)
+   ========================================================= */
+// Cole aqui a URL do seu Web App do Google Apps Script (termina em /exec)
+const TRACKING_ENDPOINT = "COLE_AQUI_A_URL_DO_SEU_WEB_APP";
+
+function getLeadId(){
+  let id = localStorage.getItem("quiz_lead_id");
+  if(!id){
+    id = Math.random().toString(36).substring(2,8);
+    localStorage.setItem("quiz_lead_id", id);
+  }
+  return id;
+}
+const LEAD_ID = getLeadId();
+
+function getTrackingParams(){
+  const params = new URLSearchParams(window.location.search);
+  const fields = ["ad_id","adset_id","campaign_id","fbclid","utm_campaign","utm_content","utm_id","utm_medium","utm_source","utm_term"];
+  const data = {};
+  fields.forEach(f => { if(params.get(f)) data[f] = params.get(f); });
+  data.platform = navigator.platform || "";
+  data.screen = `${window.screen.width}x${window.screen.height}`;
+  data.userAgent = navigator.userAgent;
+  data.language = navigator.language;
+  return data;
+}
+
+function trackStep(step, answerText){
+  if(!TRACKING_ENDPOINT || TRACKING_ENDPOINT.indexOf("COLE_AQUI") !== -1) return;
+  let stepName = "Início";
+  if(step.type === "q") stepName = QMAP[step.id] ? QMAP[step.id].title.slice(0,40) : step.id;
+  else if(step.type === "interlude") stepName = "Interlúdio: " + step.kind;
+  else if(step.type === "results") stepName = "Resultado";
+  else if(step.type === "offer") stepName = "Oferta";
+
+  fetch(TRACKING_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      leadId: LEAD_ID,
+      step: stepName,
+      answer: answerText || "clicked",
+      tracking: getTrackingParams()
+    })
+  }).catch(()=>{});
+}
+
+/* =========================================================
    PERGUNTAS
    ========================================================= */
 const QUESTIONS = [
@@ -350,7 +398,10 @@ function render(){
 }
 
 function goBack(){ if(stepIndex>0){ stepIndex--; render(); } }
-function goNext(){ if(stepIndex < FLOW.length-1){ stepIndex++; render(); } }
+function goNext(){
+  trackStep(FLOW[stepIndex], answers[FLOW[stepIndex].id]);
+  if(stepIndex < FLOW.length-1){ stepIndex++; render(); }
+}
 
 /* ---------- INTRO ---------- */
 function renderIntro(){
@@ -703,6 +754,7 @@ function startTimer(){
    START
    ========================================================= */
 render();
+trackStep(FLOW[0]);
 
 </script>
 </body>
